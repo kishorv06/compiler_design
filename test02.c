@@ -72,7 +72,7 @@ void main(){
 	FILE *fp=fopen("tester.c","r");
 	size_t size = 1024;
 	char *line = NULL,buff[10],*tok;
-	int status;
+	int status,count=0;
 	while((status = getline(&line,&size,fp)) != EOF){
 		line = strtok(line,";");
 		trim(line);
@@ -80,14 +80,18 @@ void main(){
 			tok = strtok(line," ");
 			while(tok != NULL){
 				trim(tok);
-				if(iskeyword(tok))
+				if(iskeyword(tok)){
 					printf("<%s,keyword>\n",tok);
-				else if(isdigit(tok[0]))
+					count++;
+				}else if(isdigit(tok[0])){
 					printf("<%s,number>\n",tok);
-				else if(isop(tok));
+					count++;
+				}else if(isop(tok))
+					count++;
 				tok = strtok(0," ");
 			}
 		}
 	}
+	printf("Total tokens : %d",count);
 	fclose(fp);
 }
