@@ -1,11 +1,9 @@
 #include<stdio.h>
-#include<stdlib.h>
 
 char alpha[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 void findE(int i,int *visited,int *matrix,int states){
-    if(visited[i] == 1) //If already in list return
-        return;
+    if(visited[i] == 1) return; //If already in list return
     visited[i] = 1;
     printf("%c",alpha[i]);
     int j;
@@ -21,8 +19,7 @@ void main(){
     int matrix[states][states];
     int visited[states];
     printf("Enter the transition matrix for input symbol E : \n \t");
-    for(i=0;i<states;i++)
-        printf("%c\t",alpha[i]); //Print the columns
+    for(i=0;i<states;i++) printf("%c\t",alpha[i]); //Print the columns
     for(i=0;i<states;i++){
         printf("\n%c\t",alpha[i]); //Print first row element ie. State
         for(j=0;j<states;j++)
@@ -30,8 +27,7 @@ void main(){
     }
     printf("\nEpsilon Closures\n");
     for(i=0;i<states;i++){
-        for(j=0;j<states;j++) //Reset visited
-            visited[j] = 0;
+        for(j=0;j<states;j++) visited[j] = 0; //Reset visited
         printf("\n%c\t->",alpha[i]);
         findE(i,visited,(int *)matrix,states); //Start recursive call
     }
