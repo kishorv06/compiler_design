@@ -5,7 +5,7 @@ Programs of Compiler Design Lab as per KTU S7 syllabus of 2015-19 batch
 ## Excercises / Experiments
 
 1. Design and implement a lexical analyzer for given language using C and the lexical
-analyzer should ignore redundant spaces, tabs and new lines. [Algorithm](Algorithm/exp1.txt) [Program](exp1.c)
+analyzer should ignore redundant spaces, tabs and new lines. [Algorithm](Algorithms/exp1.txt) | [Program](exp1.c)
 2. Implementation of Lexical Analyzer using Lex Tool
 3. Generate YACC specification for a few syntactic categories.
 a) Program to recognize a valid arithmetic expression that uses operator +, – , * and /.
@@ -14,7 +14,7 @@ number of letters or digits.
 c) Implementation of Calculator using LEX and YACC
 d) Convert the BNF rules into YACC form and write code to generate abstract
 syntax tree
-4. Write program to find ε – closure of all states of any given NFA with ε transition. [Algorithm](Algorithm/exp1.txt) [Program](exp1.c)
+4. Write program to find ε – closure of all states of any given NFA with ε transition. [Algorithm](Algorithms/exp4.txt) | [Program](exp4.c)
 5. Write program to convert NFA with ε transition to NFA without ε transition.
 6. Write program to convert NFA to DFA
 7. Write program to minimize any given DFA.
