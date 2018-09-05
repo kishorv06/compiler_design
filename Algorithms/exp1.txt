@@ -1,0 +1,34 @@
+1. Start
+2. Read Code file as data
+3. For each line in data do the following
+	1. Token = getToken(line,";")
+	2. If Token is not NULL then
+		1. If token starts with "/*" then
+			1. Skip tokens while token not ends with "*/"
+		2. Else if token not starting with "//" or "#" then
+			1. tok = getToken(token," ")
+			2. While tok is not NULL do
+				1. if tok is keyword then
+					1. Print tok, "Keyword"
+				2. else if tok is number then
+					1. Print tok, "Number"
+				3. else if tok is operator then
+					1. Print tok, "Operator"
+				4. else if tok starts with '"' then
+					1. Read characters until '"' is found as str
+					2. Print str, "Literal"
+				5. else if tok starts with alphabet or "_" then
+					1. Print tok, "Identifier"
+				6. End if
+			3. End while
+		3. End if
+	3. End if
+4. End for
+5. End
+
+getToken(string,del)
+
+1. Initialize s = ""
+2. Read char by char from string to s while char != del
+3. Return s
+4. End
