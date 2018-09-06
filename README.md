@@ -6,7 +6,7 @@ Programs of Compiler Design Lab as per KTU S7 syllabus of 2015-19 batch
 
 1. Design and implement a lexical analyzer for given language using C and the lexical
 analyzer should ignore redundant spaces, tabs and new lines. [Algorithm](Algorithms/exp1.txt) | [Program](exp1.c)
-2. Implementation of Lexical Analyzer using Lex Tool
+2. Implementation of Lexical Analyzer using Lex Tool [Program](exp2.c)
 3. Generate YACC specification for a few syntactic categories.
 	1. Program to recognize a valid arithmetic expression that uses operator +, – , * and /.
 	2. Program to recognize a valid variable which starts with a letter followed by any number of letters or digits.
