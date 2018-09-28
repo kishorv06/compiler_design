@@ -14,7 +14,6 @@ void main(){
     int states = 0,i,j,k,l;
     printf("Enter number of states : ");
     scanf("%d",&states);
-    int ematrix[states][states];
     int visited[states],inp;
 	printf("Enter the number of input symbols : ");
 	scanf("%d",&inp);
