@@ -17,7 +17,7 @@ void main(){
     int visited[states],inp;
 	printf("Enter the number of input symbols : ");
 	scanf("%d",&inp);
-	char ttable[states][inp+1][states],temp[states+1];
+	char ttable[states][inp+1][states];
     printf("Enter the Transition table : \n \t");
     for(i=0;i<inp;i++) printf("%d\t",i); // Print the columns
 	printf("E");
