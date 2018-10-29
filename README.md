@@ -8,9 +8,9 @@ Programs of Compiler Design Lab as per KTU S7 syllabus of 2015-19 batch
 analyzer should ignore redundant spaces, tabs and new lines. [Algorithm](Algorithms/exp1.txt) | [Program](exp1.c)
 2. Implementation of Lexical Analyzer using Lex Tool [Program](exp2.l)
 3. Generate YACC specification for a few syntactic categories.
-	1. Program to recognize a valid arithmetic expression that uses operator +, – , * and /. [Lex](exp3-1.l) | [Yacc] (exp3-1.y)
-	2. Program to recognize a valid variable which starts with a letter followed by any number of letters or digits. [Lex](exp3-2.l) | [Yacc] (exp3-2.y)
-	3. Implementation of Calculator using LEX and YACC [Lex](exp3-3.l) | [Yacc] (exp3-3.y)
+	1. Program to recognize a valid arithmetic expression that uses operator +, – , * and /. [Lex](exp3-1.l) | [Yacc](exp3-1.y)
+	2. Program to recognize a valid variable which starts with a letter followed by any number of letters or digits. [Lex](exp3-2.l) | [Yacc](exp3-2.y)
+	3. Implementation of Calculator using LEX and YACC [Lex](exp3-3.l) | [Yacc](exp3-3.y)
 	4. Convert the BNF rules into YACC form and write code to generate abstract syntax tree
 4. Write program to find ε – closure of all states of any given NFA with ε transition. [Algorithm](Algorithms/exp4.txt) | [Program](exp4.c)
 5. Write program to convert NFA with ε transition to NFA without ε transition. [Program](exp5.c)
