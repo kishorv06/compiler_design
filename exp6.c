@@ -1,72 +1,113 @@
 #include <stdio.h>
 #include <string.h>
-
-int isIn(char text[],char *newstates, int size){
-    int i;
-    for(i=0;i<size;i++){
-        if(strcmp(text,newstates+i*size) == 0) return 1;
+#include <stdlib.h>
+ 
+#define STATES  256
+#define SYMBOLS 20
+ 
+int N_symbols; 
+int NFA_states;
+char *NFAtab[STATES][SYMBOLS];
+ 
+int DFA_states; /* number of DFA states */
+int DFAtab[STATES][SYMBOLS];
+ 
+/*Print state-transition table.*/
+void put_dfa_table(int tab[][SYMBOLS],int nstates,int nsymbols){
+    int i, j;
+    puts("STATE TRANSITION TABLE");
+    /* input symbols: '0', '1', ... */
+    printf("     | ");
+    for (i = 0; i < nsymbols; i++) printf("  %c  ", '0'+i);
+    printf("\n-----+--");
+    for (i = 0; i < nsymbols; i++) printf("-----");
+    printf("\n");
+    for (i = 0; i < nstates; i++) {
+        printf("  %c  | ", 'A'+i);  /* state */
+        for (j = 0; j < nsymbols; j++)
+            printf("  %c  ", 'A'+tab[i][j]);
+        printf("\n");
     }
-    return 0;
 }
 
-int shouldSkipState(int state,char *newstates,int size){
-    int i,j;
-    char *temp;
-    for(i=0;i<size;i++){
-        temp = newstates+(i*size);
-        for(j=0;temp[j] != '\0';j++)
-            if(temp[j] == (char)state) return 1;
-    }
-    return 0;
-}
-
-void addToNewState(char *state,char *newstates,int *nsp,int states){
-    int i;
-    if(!isIn(state,newstates,states+1)){
-        for(i=0;i<states && nsp[i] != -1;i++);
-        if(i != states){
-            strcpy(newstates+i*(states+1),state);
-            nsp[i] = 0;
-        }
-    }
-}
-
-
-void main(){
-    int states = 0,i,j,final,inp;
+void init_NFA_table(){
+    DFA_states = 0;
     printf("Enter number of states : ");
-    scanf("%d",&states);
-	printf("Enter the number of input symbols : ");
-	scanf("%d",&inp);
-	char newstates[states][states+1],ttable[states][inp][states];
+    scanf("%d",&NFA_states);
+    printf("Enter the number of input symbols : ");
+    scanf("%d",&N_symbols);
+    int i,j,k;
+    char temp[NFA_states+1];
     printf("Enter the Transition table : \n \t");
-    for(i=0;i<inp;i++) printf("%d\t",i); // Print the columns
-    for(i=0;i<states;i++){
-        printf("\n%c\t",(char)(65+i)); // Print first row element ie. State
-        for(j=0;j<inp;j++)
-			scanf("%s",ttable[i][j]);
-    }
-    printf("Enter the final state : ");
-    scanf(" %c",(char *)&final);
-    final -= 65;
-    printf("\nResult\n \t\t");    
-    int nsp[states];
-    for(i=0;i<states;i++) nsp[i] = -1;
-    for(i=0;i<inp;i++) printf("%d\t\t",i); // Print the columns
-	printf("\n");
-    char cstate[2];
-    int skip;
-    for(i=0;i<states;i++){    
-        skip = shouldSkipState(i+65,(char *)newstates,states+1);    
-        if(!skip) printf("%c\t\t",i+65);
-        for(j=0;j<inp;j++){
-            if(strlen(ttable[i][j]) > 1){
-                addToNewState(ttable[i][j],(char *)newstates,nsp,states);
+        for(i=0;i<N_symbols;i++) printf("%d\t",i); // Print the columns
+    for(i=0;i<NFA_states;i++){
+        printf("\n%c\t",(char)(65+i));
+        for(j=0;j<N_symbols;j++){
+            NFAtab[i][j] = (char *) malloc(sizeof(char)*NFA_states+1);
+            scanf("%s",NFAtab[i][j]);
+            if(NFAtab[i][j][0] == '-') NFAtab[i][j][0] = '\0';
+            for(k=0;k<NFA_states && NFAtab[i][j][k] != '\0';k++){
+                NFAtab[i][j][k] -= 'A';
+                NFAtab[i][j][k] += '0';
             }
-            if(!skip) printf("%s\t\t",ttable[i][j]);
         }
-        if(!skip) printf("\n");
-        //printNewStates(newstates,nsp,ttable,states);
     }
-    for(i=0;i<states && nsp[i] != -1;i++)printf("New state %s\n",newstates[i]);
 }
+void string_merge(char *s, char *t){
+    char temp[STATES], *r=temp, *p=s;
+    while (*p && *t) {
+        if (*p == *t) {
+            *r++ = *p++; t++;
+        } else if (*p < *t) {
+            *r++ = *p++;
+        } else
+            *r++ = *t++;
+    }
+    *r = '\0';
+    if (*p) strcat(r, p);
+    else if (*t) strcat(r, t);
+    strcpy(s, temp);
+}
+ 
+void get_next_state(char *nextstates, char *cur_states,char *nfa[STATES][SYMBOLS], int n_nfa, int symbol){
+    int i;
+    char temp[STATES];
+    temp[0] = '\0';
+    for (i = 0; i < strlen(cur_states); i++)
+        string_merge(temp, nfa[cur_states[i]-'0'][symbol]);
+    strcpy(nextstates, temp);
+}
+ 
+ 
+int state_index(char *state, char statename[][STATES], int *pn){
+    int i; 
+    if (!*state) return -1; /* no next state */
+    for (i = 0; i < *pn; i++)
+        if (!strcmp(state, statename[i])) return i;
+    strcpy(statename[i], state);    /* new state-name */
+    return (*pn)++;
+}
+ 
+int nfa_to_dfa(char *nfa[STATES][SYMBOLS], int n_nfa,int n_sym, int dfa[][SYMBOLS]){
+    char statename[STATES][STATES];
+    int i = 0;  /* current index of DFA */
+    int n = 1;  /* number of DFA states */
+    char nextstate[STATES];
+    int j;
+    strcpy(statename[0], "0");  /* start state */
+    for (i = 0; i < n; i++) {    /* for each DFA state */
+        for (j = 0; j < n_sym; j++) {    /* for each input symbol */
+            get_next_state(nextstate, statename[i], nfa, n_nfa, j);
+            dfa[i][j] = state_index(nextstate, statename, &n);
+        }
+    }
+    return n;   /* number of DFA states */
+}
+ 
+void main()
+{
+    init_NFA_table();
+    DFA_states = nfa_to_dfa(NFAtab, NFA_states, N_symbols, DFAtab);
+    put_dfa_table(DFAtab, DFA_states, N_symbols);
+}
+

@@ -14,7 +14,7 @@ analyzer should ignore redundant spaces, tabs and new lines. [Algorithm](Algorit
 	4. Convert the BNF rules into YACC form and write code to generate abstract syntax tree
 4. Write program to find ε – closure of all states of any given NFA with ε transition. [Algorithm](Algorithms/exp4.txt) | [Program](exp4.c)
 5. Write program to convert NFA with ε transition to NFA without ε transition. [Program](exp5.c)
-6. Write program to convert NFA to DFA
+6. Write program to convert NFA to DFA [Program](exp6.c)
 7. Write program to minimize any given DFA.
 8. Develop an operator precedence parser for a given language.
 9. Write program to find Simulate First and Follow of any given grammar.
