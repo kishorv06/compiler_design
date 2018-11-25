@@ -39,11 +39,11 @@ int main(){
 		}
 	}
 	char buff[125];
-	printf("\n Enter the start state: ");
+	printf("\nEnter the start state: ");
 	fgets(buff, sizeof(buff), stdin);
 	char *p = strtok(buff, " ");
 	startState = atoi(p);
-	printf("\n Enter the final state: ");
+	printf("\nEnter the final state: ");
 	fgets(buff, sizeof(buff), stdin);
 	p = strtok(buff, " ");
 	while (p != NULL){
@@ -51,7 +51,7 @@ int main(){
 		finalStates |= 1 << (state);
 		p = strtok(NULL, " ");
 	}
-	printf("\n Enter the transitions \n ");
+	printf("\nEnter the transitions\n");
 	int from;
 	char symbol;
 	int to;
@@ -111,7 +111,7 @@ int main(){
 			nextPartitionIndex++;
 		}
 	}
-	printf("\n start partion : \n");
+	printf("\nStart partion :\n");
 	int startPartition = 0;
 	for (i = 0; i < nextPartitionIndex; i ++){
 		if ((P[i] & (1 << startState)) != 0 ){
@@ -120,14 +120,14 @@ int main(){
 		}
 	}
 	printf("%d \n", startPartition);
-	printf("\n Final partion : \n");
+	printf("\nFinal partion :\n");
 	for (i = 0; i < nextPartitionIndex; i++){
 		if ((P[i] & finalStates) != 0){
 			printf("%d ", i);
 		}
 	}
 	printf("\n");
-	printf("\n Final transitions : \n");
+	printf("\nFinal transitions : \n\n");
 	for (i = 0; i < nextPartitionIndex; i++){
 		for (j = 0; j < 26; j++) {
 			if (partitionTransitionMap[i][j] != -1){
