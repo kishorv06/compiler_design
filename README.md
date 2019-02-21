@@ -17,8 +17,8 @@ analyzer should ignore redundant spaces, tabs and new lines. [Algorithm](Algorit
 6. Write program to convert NFA to DFA [Program](exp6.c)
 7. Write program to minimize any given DFA. [Program](exp7.c)
 8. Develop an operator precedence parser for a given language. [Program](exp8.c)
-9. Write program to find Simulate First and Follow of any given grammar.
-10. Construct a recursive descent parser for an expression.
+9. Write program to find Simulate First and Follow of any given grammar. [Program](exp11.c)
+10. Construct a recursive descent parser for an expression. [Program](exp10.c)
 11. Construct a Shift Reduce Parser for a given language. [Program](exp11.c)
 12. Write a program to perform loop unrolling.
 13. Write a program to perform constant propagation.
